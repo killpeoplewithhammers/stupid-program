@@ -6,19 +6,26 @@ from functools import partial
 import time
 
 clickArray = []
-def click(clickArray):
+def click():
     currentTime = time.clock_gettime_ns(time.CLOCK_REALTIME)
     clickArray.append(currentTime)
+    updateClickSpeed()
+    print(len(clickArray))
+
+def updateClickSpeed():
+    currentTime = time.clock_gettime_ns(time.CLOCK_REALTIME)
     for clickNumber in range(len(clickArray)-1):
-        if clickArray[clickNumber] + 1000000000 < currentTime:
-            clickArray.pop(clickNumber)
+        if len(clickArray) < 1:
+            break
+        elif clickArray[0] + 1000000000 < currentTime:
+            print("clicknumber is ", clickNumber)
+            clickArray.pop(0)
         else:
             break
-    return clickArray
     
 root = Tk()
 frm = ttk.Frame(root, padding=100)
 frm.grid()
-ttk.Label(frm, text=f"you click {len(clickArray)}").grid(column=0, row=0)
-ttk.Button(frm, text="Click Fast", command=partial(click, clickArray)).grid(column=0, row=1)
+ttk.Label(frm, text="you click (put click speed here)").grid(column=0, row=0)
+ttk.Button(frm, text="Click Fast", command=partial(click)).grid(column=0, row=1)
 root.mainloop()
