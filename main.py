@@ -2,30 +2,45 @@
 
 from tkinter import *
 from tkinter import ttk
-from functools import partial
 import time
 
+# Variables
 clickArray = []
+
+# Functions
+
+# Function that runs whenever the button is clicked
 def click():
     currentTime = time.clock_gettime_ns(time.CLOCK_REALTIME)
     clickArray.append(currentTime)
-    updateClickSpeed()
-    print(len(clickArray))
+#    updateClickSpeed()
+    print("clickfunc: " + str(len(clickArray)))
 
+# Function to remove clicks that are over a second old
 def updateClickSpeed():
     currentTime = time.clock_gettime_ns(time.CLOCK_REALTIME)
     for clickNumber in range(len(clickArray)-1):
-        if len(clickArray) < 1:
-            break
-        elif clickArray[0] + 1000000000 < currentTime:
-            print("clicknumber is ", clickNumber)
+        if clickArray[0] + 1000000000 < currentTime:
             clickArray.pop(0)
-        else:
-            break
-    
-root = Tk()
-frm = ttk.Frame(root, padding=100)
+            label.configure(text=f"{len(clickArray)} click per second")
+            print("update: " + str(len(clickArray)))
+#        else:
+#            print(clickArray)
+#            print(clickNumber)
+#            break
+
+
+tk = Tk()
+frm = ttk.Frame(tk, padding=100)
 frm.grid()
-ttk.Label(frm, text="you click (put click speed here)").grid(column=0, row=0)
-ttk.Button(frm, text="Click Fast", command=partial(click)).grid(column=0, row=1)
-root.mainloop()
+
+label = ttk.Label(frm, text="0 cps")
+label.grid(column=0, row=0)
+
+ttk.Button(frm, text="Click Fast", command=click).grid(column=0, row=1)
+
+# Loop
+while True:
+    updateClickSpeed()
+    tk.update_idletasks()
+    tk.update()
