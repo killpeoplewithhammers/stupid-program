@@ -24,6 +24,7 @@ def updateClickSpeed():
             clickArray.pop(0)
             label.configure(text=f"{len(clickArray)} click per second")
             print("update: " + str(len(clickArray)))
+    Label.after(50, updateClickSpeed)
 #        else:
 #            print(clickArray)
 #            print(clickNumber)
@@ -34,13 +35,10 @@ tk = Tk()
 frm = ttk.Frame(tk, padding=100)
 frm.grid()
 
-label = ttk.Label(frm, text="0 cps")
+label = ttk.Label(frm, text="0 cps", command=updateClickSpeed())
 label.grid(column=0, row=0)
 
 ttk.Button(frm, text="Click Fast", command=click).grid(column=0, row=1)
 
 # Loop
-while True:
-    updateClickSpeed()
-    tk.update_idletasks()
-    tk.update()
+tk.mainloop()
