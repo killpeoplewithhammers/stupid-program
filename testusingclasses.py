@@ -3,7 +3,7 @@ from tkinter import ttk
 import time
 
 
-class DigitalClock(tk.Tk):
+class ClickTest(tk.Tk):
 
     def __init__(self):
         super().__init__()
@@ -47,5 +47,5 @@ class DigitalClock(tk.Tk):
 
 
 if __name__ == "__main__":
-    clock = DigitalClock()
+    clock = ClickTest()
     clock.mainloop()
