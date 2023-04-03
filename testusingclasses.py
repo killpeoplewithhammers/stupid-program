@@ -34,10 +34,10 @@ class ClickTest(tk.Tk):
 
     def updateClickSpeed(self):
         currentTime = time.clock_gettime_ns(time.CLOCK_REALTIME)
-        for i in range(len(self.clickArray)-1):
+        for i in range(len(self.clickArray)):
             if self.clickArray[0] + 1000000000 < currentTime:
                 self.clickArray.pop(0)
-                return f"{len(self.clickArray)} click per second"
+                return f"{len(self.clickArray)} clicks per second"
 
     def update(self):
         self.label.configure(text=self.updateClickSpeed())
